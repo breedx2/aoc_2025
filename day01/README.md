@@ -4,6 +4,8 @@
 * `test1.txt` is the sample input
 * `test2.txt` is the "real" input?
 
+edit: test2.txt has been excluded
+
 ```
 cat test2.txt | python3 dial1.py
 cat test2.txt | python3 dial2.py
