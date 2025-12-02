@@ -11,5 +11,5 @@ $ cat test2.txt | python3 find.py # answer
 Second part:
 ```
 $ cat test1.txt | python3 find2.py 
-$ cat test3.txt | python3 find2.py # answer
+$ cat test2.txt | python3 find2.py # answer
 ```
