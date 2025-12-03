@@ -1,7 +1,11 @@
 from sys import stdin
 
+cache = dict()
+
 def joltage(bank, num, ind = ''):
-    print("{0}bank {1} num {2}".format(ind, bank, num))
+    key = bank + "+" + str(num)
+    if key in cache:
+        return cache[key]
     if num == 0 or num > len(bank):
         return ""
     if num == len(bank):
@@ -11,11 +15,10 @@ def joltage(bank, num, ind = ''):
         first = bank[i]
         rest = joltage(bank[i+1:], num-1, ind + " ")
         t = first + rest
-        # print("{0}check {1} vs {2}".format(ind, result, int(t)))
         if int(t) > int(result):
             result = t
 
-    print("{0}bank {1} num {2} yields {3}".format(ind, bank, num, result))
+    cache[key] = result
     return result
 
 total = 0
@@ -24,5 +27,6 @@ for bank in stdin:
     print(j)
     total = total + int(j)
 
+print("cache size ended up being {0}".format(len(cache)))
 print('--------')
 print(total)
