@@ -11,3 +11,5 @@ map/graph of part 2, so I slowed it down
 and did a screen recording of the progress.
 
 Those elves are working. Go, little elves, go!
+
+https://github.com/user-attachments/assets/5e623a3c-3f5d-47ec-b52a-876f5d2db0c0
