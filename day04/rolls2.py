@@ -51,8 +51,13 @@ grid = list()
 for line in stdin:
     grid.append(list(line.strip()))
 print_grid(grid)
-(marked, ct) = mark_grid(grid)
-sum = sum + ct
-print_grid(marked)
+
+while True:
+    (marked, ct) = mark_grid(grid)
+    sum = sum + ct
+    if ct == 0:
+        break
+    grid = clone_grid(marked)
+    print_grid(marked)
 
 print(sum)
