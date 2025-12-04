@@ -1,4 +1,5 @@
 from sys import stdin
+import time
 
 def grid_item(grid, row, col):
     if row < 0 or row >= len(grid):
@@ -32,6 +33,16 @@ def clone_grid(grid):
         result.append(list(row))
     return result
 
+def remove_marked(grid):
+    result = list()
+    def rep(ch):
+        if ch == 'x':
+            return '.'
+        return ch
+    for row in grid:
+        result.append(list(map(rep, row)))
+    return result
+
 def mark_grid(input_grid):
     ct = 0
     grid = clone_grid(input_grid)
@@ -57,7 +68,8 @@ while True:
     sum = sum + ct
     if ct == 0:
         break
+    print_grid(remove_marked(marked))
     grid = clone_grid(marked)
-    print_grid(marked)
+    time.sleep(0.3) # for the recording
 
 print(sum)
