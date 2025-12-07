@@ -33,19 +33,16 @@ def walk_board(board, row_num):
                 case '^':
                     if above == '|': # beam entering splitter
                         timeline_ct = 0
-                        if j > 0 and board[row_num][j-1] == '.':
-                            left = clone_board(board)
-                            # original_row = list(row)
-                            left[row_num][j-1] = '|' # left timeline
-                            # print("go left")
-                            child_timelines = walk_board(left, row_num+1)
-                            timeline_ct = timeline_ct + child_timelines
-                        if j < len(row) - 1 and board[row_num][j+1] == '.':
-                            right = clone_board(board)
-                            right[row_num][j+1] = '|' # right timeline
-                            # print("go right")
-                            child_timelines = walk_board(right, row_num+1)
-                            timeline_ct = timeline_ct + child_timelines
+                        left = clone_board(board)
+                        left[row_num][j-1] = '|' # left timeline
+                        # print("go left")
+                        child_timelines = walk_board(left, row_num+1)
+                        timeline_ct = timeline_ct + child_timelines
+                        right = clone_board(board)
+                        right[row_num][j+1] = '|' # right timeline
+                        # print("go right")
+                        child_timelines = walk_board(right, row_num+1)
+                        timeline_ct = timeline_ct + child_timelines
                         # print("genesis returning {0}".format(timeline_ct))
                         return timeline_ct
                 case '.':
