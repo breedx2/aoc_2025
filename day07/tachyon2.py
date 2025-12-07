@@ -34,7 +34,11 @@ def walk_board(board, row_num):
             match ch:
                 case '^':
                     if above == '|': # beam entering splitter
+                        # TODO: Make code more robust again by guarding against edges
+                        # this was removed in ed9bec436d52ab459b01de6851bcb3259545dadf
+
                         timeline_ct = 0
+                        # TODO: Avoid this clone if we have the line cached
                         left = clone_board(board)
                         left[row_num][j-1] = '|' # left timeline
                         key = "".join(left[row_num])
@@ -45,10 +49,11 @@ def walk_board(board, row_num):
                             cache[key] = child_timelines
                         timeline_ct = timeline_ct + child_timelines
 
+                        # TODO: Avoid this clone if we have the line cached
                         right = clone_board(board)
                         right[row_num][j+1] = '|' # right timeline
                         key = "".join(right[row_num])
-                        if key in cache:
+                        if key in cache: # already seen this subtree
                             child_timelines = cache[key]
                         else:
                             child_timelines = walk_board(right, row_num+1)
