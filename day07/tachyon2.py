@@ -41,6 +41,7 @@ def walk_board(board, row_num):
                         # TODO: Avoid this clone if we have the line cached
                         left = clone_board(board)
                         left[row_num][j-1] = '|' # left timeline
+                        # TODO: This key is shitty and there are cases that could break this without the line number I think 
                         key = "".join(left[row_num])
                         if key in cache: # already seen this subtree
                             child_timelines = cache[key]
@@ -52,6 +53,7 @@ def walk_board(board, row_num):
                         # TODO: Avoid this clone if we have the line cached
                         right = clone_board(board)
                         right[row_num][j+1] = '|' # right timeline
+                        # TODO: This key is shitty and there are cases that could break this without the line number I think 
                         key = "".join(right[row_num])
                         if key in cache: # already seen this subtree
                             child_timelines = cache[key]
