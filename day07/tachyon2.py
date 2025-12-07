@@ -17,6 +17,8 @@ def clone_board(board):
         result.append(list(row))
     return result
 
+cache = dict()
+
 """
 walks the board starting at row_num, until it hits
 a splitter. when it does, it recurses with the
@@ -35,32 +37,29 @@ def walk_board(board, row_num):
                         timeline_ct = 0
                         left = clone_board(board)
                         left[row_num][j-1] = '|' # left timeline
-                        # print("go left")
-                        child_timelines = walk_board(left, row_num+1)
+                        key = "".join(left[row_num])
+                        if key in cache: # already seen this subtree
+                            child_timelines = cache[key]
+                        else:
+                            child_timelines = walk_board(left, row_num+1)
+                            cache[key] = child_timelines
                         timeline_ct = timeline_ct + child_timelines
+
                         right = clone_board(board)
                         right[row_num][j+1] = '|' # right timeline
-                        # print("go right")
-                        child_timelines = walk_board(right, row_num+1)
+                        key = "".join(right[row_num])
+                        if key in cache:
+                            child_timelines = cache[key]
+                        else:
+                            child_timelines = walk_board(right, row_num+1)
+                            cache[key] = child_timelines
                         timeline_ct = timeline_ct + child_timelines
-                        # print("genesis returning {0}".format(timeline_ct))
                         return timeline_ct
                 case '.':
                     board[row_num][j] = '|' if above == 'S' or above == '|' else '.'
         row_num = row_num + 1
-    # timeline_ct = 1
-    # print("returning {0}".format(timeline_ct))
     return 1
 
 ct = walk_board(board, 1)
-print(ct)
-
-# timelines = list([[board, 1]])
-# timeline_ct = 0
-# while len(timelines) > 0:
-#     board, row_num = timelines.pop(0)
-#     if walk_board(timelines, board, row_num):
-#         timeline_ct = timeline_ct + 1
-#     print(" timelines size {0}".format(len(timelines)))
-
-# print(timeline_ct)
+print("cache size: {0}".format(len(cache)))
+print("answer: {0}".format(ct))
